@@ -79,13 +79,13 @@ function AddNewInterview() {
     className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all"
     onClick={() => setOpenDialog(true)}
   >
-    <h2 className="text-lg text-center">+ Add New</h2>
+    <h2 className="text-md text-center">➕ Create One More</h2>
   </div>
 
   <Dialog open={openDialog} onOpenChange={setOpenDialog}>
     <DialogContent className="max-w-2xl">
       <DialogHeader>
-        <DialogTitle>Tell us more about your job interviewing for</DialogTitle>
+        <DialogTitle>Tell us more about the job you are interviewing for</DialogTitle>
         <DialogDescription>
           Add details about your job position, description, and experience.
         </DialogDescription>
