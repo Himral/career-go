@@ -124,7 +124,7 @@ console.log('Attempting to save to DB with data:', {
       <Button onClick={() => console.log(userAnswer)}>Show User Answer</Button>
 
       {jsonMockResponse && (
-        <div className='p-4 bg-gray-100 rounded-md mt-4 w-[80%] max-w-xl text-left'>
+        <div className='p-4 bg-gray-100 text-black rounded-md mt-4 w-[80%] max-w-xl text-left'>
           <h3 className='font-semibold mb-2 text-lg'>Gemini Feedback</h3>
           <p><strong>Rating:</strong> {jsonMockResponse.rating}</p>
           <p><strong>Feedback:</strong> {jsonMockResponse.feedback}</p>

@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { toast } from "sonner";
 import QuestionsSection from './_components/QuestionsSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
+import { Button } from '@/components/ui/button';
 function StartInterview({params}) {
     const { interviewId } = use(params);
 
@@ -54,6 +55,20 @@ function StartInterview({params}) {
             interviewData = {interviewData}
         />
         </div>
+
+        <div className="flex justify-end gap-6">
+        {activeQuestionIndex > 0 && <Button disabled={activeQuestionIndex==0}  onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
+
+        {activeQuestionIndex !==
+          MockInterviewQuestions?.length - 1 && <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>}
+
+        {activeQuestionIndex == MockInterviewQuestions?.length - 1 && (
+          <Link  href={'/dashboard/interview/'+interviewData?.mockId+"/feedback"}>
+          
+          <Button>End Interview</Button>
+          </Link>
+        )}
+      </div>
     </div>
   )
 }
