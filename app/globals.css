@@ -55,6 +55,8 @@
 
   .dark {
     --background: 240 6% 10%;
+      /* Just the HSL */
+      --background-gradient: radial-gradient(circle at center, rgba(0, 173, 255, 0.2), transparent);
     /* Deep navy / zinc-900 */
     --foreground: 0 0% 98%;
 
@@ -105,7 +107,10 @@
     @apply border-border outline-ring/50;
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
+    body {
+      background-color: hsl(var(--background));
+      background-image: var(--background-gradient);
+      background-blend-mode: overlay;
+      color: hsl(var(--foreground));
+    }
 }
