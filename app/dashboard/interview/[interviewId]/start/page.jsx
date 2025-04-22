@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import QuestionsSection from './_components/QuestionsSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
 function StartInterview({params}) {
     const { interviewId } = use(params);
 
@@ -63,7 +65,7 @@ function StartInterview({params}) {
           MockInterviewQuestions?.length - 1 && <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>}
 
         {activeQuestionIndex == MockInterviewQuestions?.length - 1 && (
-          <Link  href={'/dashboard/interview/'+interviewData?.mockId+"/feedback"}>
+          <Link  href={`/dashboard/interview/${interviewData.mockId}/feedback`}>
           
           <Button>End Interview</Button>
           </Link>
