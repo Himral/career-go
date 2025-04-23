@@ -35,7 +35,7 @@ const items = [
   },
   {
     title: "Job Search",
-    url: "#",
+    url: "/dashboard/job-search",
     icon: Settings,
   },
   {

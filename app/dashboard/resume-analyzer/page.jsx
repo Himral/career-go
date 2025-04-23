@@ -1,103 +1,79 @@
 'use client';
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
-import { Textarea } from '@/components/ui/textarea';
-import { UploadCloud } from 'lucide-react';
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader } from "lucide-react";
+import { chatSession } from "@/utils/GeminiAIModel";
 
 export default function ResumeAnalyzerPage() {
-  const [file, setFile] = useState(null);
-  const [analysis, setAnalysis] = useState(null);
+  const [jobDesc, setJobDesc] = useState('');
+  const [resumeFile, setResumeFile] = useState(null);
+  const [analysisResult, setAnalysisResult] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleUpload = async () => {
-    if (!file) return;
-    setLoading(true);
+  const handleFileChange = (e) => {
+    setResumeFile(e.target.files[0]);
+  };
+
+  const handleAnalyze = async () => {
+    if (!resumeFile || !jobDesc) {
+      alert("Please upload a resume and enter a job description.");
+      return;
+    }
 
     const formData = new FormData();
-    formData.append('resume', file);
+    formData.append("resume", resumeFile);
+    formData.append("jobDescription", jobDesc);
+
+    setLoading(true);
+    setAnalysisResult('');
 
     try {
-      const res = await fetch('/api/analyze', {
-        method: 'POST',
-        body: formData,
-      });
 
-      const data = await res.json();
-      setAnalysis(data);
-    } catch (err) {
-      console.error('Upload error:', err);
+      const InputPrompt = "Based on the job desciption : "  + jobDesc +  " , and uploaded resume file" + resumeFile + ", act as a proficient ATS score generator , in the form of json give { ATS score, Summarised resume in 100 words, focus of improvement in each field of resume}.  "
+      
+      const result = await chatSession.sendMessage(InputPrompt);
+
+      const ResumeJsonResp = (result.response.text()).replace('```json','').replace('```','')
+      console.log(JSON.parse(ResumeJsonResp));
+      setAnalysisResult(ResumeJsonResp);
+    } catch (error) {
+      console.error("Error analyzing resume:", error);
+      setAnalysisResult("An error occurred while analyzing the resume.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-4xl mx-auto p-6 space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <UploadCloud className="h-5 w-5" />
-            Upload Your Resume
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Input
-            type="file"
-            accept=".pdf,.docx"
-            onChange={(e) => setFile(e.target.files?.[0])}
+        <CardContent className="space-y-4 p-4">
+          <h2 className="text-xl font-semibold">Upload Resume for Analysis</h2>
+          <Input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
+
+          <Textarea
+            placeholder="Paste the job description here..."
+            rows={6}
+            value={jobDesc}
+            onChange={(e) => setJobDesc(e.target.value)}
           />
-          <Button onClick={handleUpload} disabled={!file || loading}>
-            {loading ? 'Analyzing...' : 'Analyze Resume'}
+
+          <Button onClick={handleAnalyze} disabled={loading}>
+            {loading ? <Loader className="animate-spin h-4 w-4 mr-2" /> : "Analyze Resume"}
           </Button>
         </CardContent>
       </Card>
 
-      {analysis && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>ATS Score</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Progress value={analysis.ats_score} />
-              <p className="text-center mt-2 text-lg font-semibold">
-                {analysis.ats_score}%
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Keyword Match</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Progress value={analysis.keyword_match?.score || 0} />
-              <p className="mt-2 font-medium">Missing Skills:</p>
-              <ul className="list-disc list-inside text-sm text-muted-foreground">
-                {analysis.keyword_match?.missing_skills?.map((s, i) => (
-                  <li key={i}>{s}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="md:col-span-2">
-            <CardHeader>
-              <CardTitle>Suggestions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                readOnly
-                className="min-h-[150px]"
-                value={(analysis.suggestions || []).join('\n')}
-              />
-            </CardContent>
-          </Card>
-        </div>
+      {analysisResult && (
+        <Card>
+          <CardContent className="p-4">
+            <h3 className="text-lg font-semibold mb-2">Analysis Result</h3>
+            <pre className="whitespace-pre-wrap text-sm text-white-500">{analysisResult}</pre>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

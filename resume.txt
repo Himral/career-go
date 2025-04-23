@@ -1,0 +1,67 @@
+
+Himral Garg
+Email: himralgarg@gmail.com
+Mobile: +91-7302644613
+Github: https://github.com/Himral
+LinkedIn: https://www.linkedin.com/in/himral-garg-a2b30621a/
+Leetcode: https://leetcode.com/himral_garg_235/
+
+Education
+
+- Jaypee Institute Of Information Technology, Noida, India
+  Bachelor of Technology - Computer Science and Engineering
+  GPA: 8.2 ; SGPA: 8.7 | Sep 2021 - May 2025
+  Courses: DBMS, OS, DSA, OOP in C++
+
+- Khalsa Montessori Sr Sec School, Bulandshahr, Uttar Pradesh, India
+  Senior Secondary – 97.8%
+  High School – 96.4%
+
+Skills Summary
+
+- Languages: C++, SQL, JavaScript, Python
+- Frameworks: React.js, Node.js, Express.js, HTML, CSS
+- Tools: Linux, Git, MySQL, MongoDB
+- Coursework: DBMS, OS, OOPS, CN, Large Scale Databases
+- Soft Skills: Leadership, Event Management, Writing, Public Speaking, Time Management, Communication, Work Ethics
+
+Projects
+
+- SplitBuddy (MongoDB, React.js, Node.js, Express.js, Material UI)
+  GitHub: https://github.com/Himral/SplitWise-Clone | May 2024 - June 2024
+  - MERN app for expense logging and group splitting
+  - JWT authentication and agile methodology
+
+- Chat Analyser (Python, Matplotlib, Seaborn)
+  GitHub: https://github.com/Himral/Chat-Analyser | Aug 2023 - Dec 2023
+  - WhatsApp chat analyzer with visual insights
+
+- Sahayogi (HTML, CSS, Bootstrap)
+  Live: https://himral.github.io/OSDC_deja_bytes/start.html | Apr 2023
+  - Web platform for underprivileged children's access to healthcare and education
+
+Experience
+
+- Edden Internet Pvt Ltd (Remote)
+  Software Development Engineer Intern | June 2024 - July 2024
+  - Built scalable expense tracking app with RESTful APIs
+  - Ensured high concurrency and performance
+
+Honors and Awards
+
+- Selected for Amazon ML Summer School (top 0.03% out of 85,000)
+- Postman API Student Expert Badge – June 2024
+- Solved 500+ Leetcode questions – Oct 2023
+- 1st Prize, OSDCHack’23 (Inter-college hackathon)
+- Selected as Mentee – Codess.Cafe Women In Tech, Feb 2022
+
+Position of Responsibility
+
+- Tech Volunteer, IEEE Student Branch, JIIT Noida | July 2022 - July 2023
+  - Mentored 50+ students in C++ basics
+
+- Student Coordinator, Knuth Programming Hub, JIIT Noida | Aug 2023 - July 2024
+  - Led workshops on DSA and programming fundamentals
+
+- Mentee & Organizer, Codess.Cafe
+  - Mentored upcoming tech enthusiasts
