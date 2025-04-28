@@ -1,0 +1,32 @@
+{
+    "0-legal-notice": "Remotive API Legal Notice",
+    "job-count": 1, # Number or jobs matching the query == length of 'jobs'list
+    "jobs": # The list of all jobs retrieved.
+    [
+        # Then for each job, you get:
+        {
+            
+            "id": 123, 
+            
+            "url": "https://remotive.com/remote-jobs/product/lead-developer-123", 
+            
+            "title": "Lead Developer", 
+           
+            "company_name": "Remotive", 
+            
+            "company_logo": "https://remotive.com/job/123/logo", 
+             
+            "category": "Software Development",
+         
+            "job_type": "full_time", 
+            
+            "publication_date": "2020-02-15T10:23:26",
+            
+            "candidate_required_location": "Worldwide", 
+            
+            "salary": "$40,000 - $50,000", 
+            
+            "description": "The full HTML job description here", 
+        },
+    ]
+}

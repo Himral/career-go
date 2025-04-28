@@ -1,37 +1,43 @@
 'use client';
+
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 export default function JobList({ jobs }) {
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6">Recommended Jobs</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {jobs.map((job) => (
-          <Card key={job.id} className="h-full flex flex-col">
-            <CardHeader>
-              <CardTitle>{job.title}</CardTitle>
-              <p className="text-sm text-gray-600">{job.company.display_name}</p>
+    <div className="flex flex-col gap-6">
+      {jobs.map((job) => (
+        <Card key={job.id} className="flex flex-col md:flex-row items-start md:items-center p-4 gap-4 shadow-lg hover:shadow-xl transition-shadow duration-300">
+
+          {/* Main Content */}
+          <div className="flex flex-col flex-grow">
+            <CardHeader className="p-0 mb-2">
+              <CardTitle className="text-lg font-semibold">{job.company_name} - {job.title}</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">{job.candidate_required_location}</p>
             </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-sm mb-2">
-                <span className="font-medium">Location:</span> {job.location.display_name}
-              </p>
-              <p className="text-sm mb-2">
-                <span className="font-medium">Salary:</span> {job.salary_min ? `${job.salary_min} - ${job.salary_max} ${job.salary_currency}` : 'Not specified'}
-              </p>
-              <div className="text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: job.description }} />
+
+            <CardContent className="p-0">
+              <div className="flex flex-wrap gap-2 mt-2">
+                <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{job.job_type}</span>
+                {job.salary && (
+                  <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">{job.salary}</span>
+                )}
+              </div>
+              <p className="text-sm text-gray-600 mt-2 line-clamp-3" dangerouslySetInnerHTML={{ __html: job.description }} />
             </CardContent>
-            <CardFooter>
-              <Button asChild className="w-full">
-                <a href={job.redirect_url} target="_blank" rel="noopener noreferrer">
-                  View Job
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+          </div>
+
+          {/* Apply Button */}
+          <CardFooter className="p-0 mt-4 md:mt-0">
+            <Button asChild className="w-full md:w-auto">
+              <a href={job.url} target="_blank" rel="noopener noreferrer">
+                Apply »
+              </a>
+            </Button>
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 }
