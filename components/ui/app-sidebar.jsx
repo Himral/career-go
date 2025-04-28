@@ -29,18 +29,13 @@ const items = [
     icon: Calendar,
   },
   {
-    title: "Resume Builder",
-    url: "#",
-    icon: Search,
-  },
-  {
     title: "Job Search",
     url: "/dashboard/job-search",
     icon: Settings,
   },
   {
-    title: "Feedback",
-    url: "#",
+    title: "About",
+    url: "/dashboard",
     icon: Settings,
   },
 ]
