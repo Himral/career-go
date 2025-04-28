@@ -18,34 +18,43 @@ export default function ResumeAnalyzerPage() {
   };
 
   const handleAnalyze = async () => {
-    if (!resumeFile || !jobDesc) {
-      alert("Please upload a resume and enter a job description.");
-      return;
+  if (!resumeFile || !jobDesc) {
+    alert("Please upload a resume and enter a job description.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("resume", resumeFile);
+  formData.append("jobDescription", jobDesc);
+
+  setLoading(true);
+  setAnalysisResult(null);
+
+  try {
+    const InputPrompt = `Based on the job description: ${jobDesc}, and uploaded resume file ${resumeFile.name}, act as a proficient ATS score generator, and return strictly and only JSON with { ATS score, Summarised resume in 100 words, focus of improvement in each field of resume }.`;
+
+    const result = await chatSession.sendMessage(InputPrompt);
+
+    let textResponse = await result.response.text();
+    
+    // Extract JSON safely
+    const jsonMatch = textResponse.match(/{[\s\S]*}/);
+    if (!jsonMatch) {
+      throw new Error("No valid JSON found in the response.");
     }
 
-    const formData = new FormData();
-    formData.append("resume", resumeFile);
-    formData.append("jobDescription", jobDesc);
+    const parsedResult = JSON.parse(jsonMatch[0]);
+    console.log(parsedResult);
+    setAnalysisResult(parsedResult);
 
-    setLoading(true);
-    setAnalysisResult('');
+  } catch (error) {
+    console.error("Error analyzing resume:", error);
+    setAnalysisResult({ error: "An error occurred while analyzing the resume." });
+  } finally {
+    setLoading(false);
+  }
+};
 
-    try {
-
-      const InputPrompt = "Based on the job desciption : "  + jobDesc +  " , and uploaded resume file" + resumeFile + ", act as a proficient ATS score generator , in the form of json give { ATS score, Summarised resume in 100 words, focus of improvement in each field of resume}.  "
-      
-      const result = await chatSession.sendMessage(InputPrompt);
-
-      const ResumeJsonResp = (result.response.text()).replace('```json','').replace('```','')
-      console.log(JSON.parse(ResumeJsonResp));
-      setAnalysisResult(ResumeJsonResp);
-    } catch (error) {
-      console.error("Error analyzing resume:", error);
-      setAnalysisResult("An error occurred while analyzing the resume.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -70,8 +79,42 @@ export default function ResumeAnalyzerPage() {
       {analysisResult && (
         <Card>
           <CardContent className="p-4">
-            <h3 className="text-lg font-semibold mb-2">Analysis Result</h3>
-            <pre className="whitespace-pre-wrap text-sm text-white-500">{analysisResult}</pre>
+            <h3 className="text-lg font-semibold mb-4">Analysis Result</h3>
+
+            {analysisResult.error ? (
+              <p className="text-red-500">{analysisResult.error}</p>
+            ) : (
+              <div className='flex-col justify-center items-center space-y-4'>
+                {/* ATS Score */}
+                <div className="bg-green-100 p-4 shadow">
+                  <h4 className="text-md font-bold text-green-700">ATS Score</h4>
+                  <p className="text-2xl font-extrabold text-green-900">{analysisResult['ATS_score']}%</p>
+                </div>
+
+                {/* Resume Summary */}
+                <div className="bg-blue-100 p-4 shadow">
+                  <h4 className="text-md font-bold text-blue-700">Summarised Resume</h4>
+                  <p className="text-gray-700">{analysisResult['Summarised_resume']}</p>
+                </div>
+
+                {/* Improvement Focus */}
+                <div className="bg-yellow-100 p-4 shadow">
+                  <h4 className="text-md font-bold text-yellow-700 mb-2">Focus of Improvement</h4>
+
+        {/* Now loop through improvements */}
+        {analysisResult['focus_of_improvement'] && (
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
+            {Object.entries(analysisResult['focus_of_improvement']).map(([key, value]) => (
+              <li key={key}>
+                <span className="font-semibold">{key}:</span> {value}
+              </li>
+            ))}
+          </ul>
+        )}
+
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}
