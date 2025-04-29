@@ -7,6 +7,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader } from "lucide-react";
 import { chatSession } from "@/utils/GeminiAIModel";
 
+const ToggleSection = ({ title, children, bgColor = 'bg-white' }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className={`rounded shadow ${bgColor}`}>
+      <button
+        className="w-full text-left text-blue-900 px-4 py-3 font-semibold text-lg hover:bg-opacity-80 transition"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {title}
+      </button>
+      {isOpen && <div className="px-4 pb-4">{children}</div>}
+    </div>
+  );
+};
 export default function ResumeAnalyzerPage() {
   const [jobDesc, setJobDesc] = useState('');
   const [resumeFile, setResumeFile] = useState(null);
@@ -31,7 +46,53 @@ export default function ResumeAnalyzerPage() {
   setAnalysisResult(null);
 
   try {
-    const InputPrompt = `Based on the job description: ${jobDesc}, and uploaded resume file ${resumeFile.name}, act as a proficient ATS score generator, and return strictly and only JSON with { ATS score, Summarised resume in 100 words, focus of improvement in each field of resume }.`;
+    // const InputPrompt = `Based on the job description: ${jobDesc}, and uploaded resume file ${resumeFile.name}, act as a proficient ATS score generator, calculate the ATS score of the resume in relevance to the job description , give summary of resume text in 100 words as a candidate introduction, give the focus of improvements in each field of resume in relevance to job description and return strictly and only JSON with fields { ATS score, Summarised resume in 100 words, focus of improvement in each field of resume }.`;
+
+    const InputPrompt = `You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in the tech industry, including but not limited to [insert specific field here, e.g., software engineering, data science, data analysis, big data engineering]. Your primary task is to meticulously evaluate resumes based on the provided job description. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        Responsibilities:
+
+        1. Assess resumes with a high degree of accuracy against the job description.
+        2. Identify and highlight missing keywords crucial for the role.
+        3. Provide a percentage match score reflecting the resume's alignment with the job requirements on the scale of 1-100.
+        4. Offer detailed feedback for improvement to help candidates stand out.
+        5. Analyze the Resume ${resumeFile.name}, Job description ${jobDesc} and indutry trends and provide personalized suggestions for skils, keywords and acheivements that can enhance the provided resume.
+        6. Provide the suggestions for improving the language, tone and clarity of the resume content in resume file ${resumeFile.name}.
+        7. Provide users with insights into the performance of thier resumes. Track the metrices such as - a) Application Success rates b) Views c) engagement. offers valuable feedback to improve the candidate's chances in the job market use your trained knowledge of gemini trained data . Provide  a application success rate on the scale of 1-100.
+
+        after everytime whenever a usr refersh a page, if the provided job decription and resume is same, then always give same result. 
+        
+
+        Field-Specific Customizations:
+
+        Software Engineering:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in software engineering. Your primary task is to meticulously evaluate resumes based on the provided job description for software engineering roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        Data Science:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in data science. Your primary task is to meticulously evaluate resumes based on the provided job description for data science roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        Data Analysis:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in data analysis. Your primary task is to meticulously evaluate resumes based on the provided job description for data analysis roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        Big Data Engineering:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in big data engineering. Your primary task is to meticulously evaluate resumes based on the provided job description for big data engineering roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        AI / MLEngineering:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in AI/ML engineering. Your primary task is to meticulously evaluate resumes based on the provided job description for AI / ML engineering roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        CLoud Engineering:
+        You are an advanced and highly experienced Applicant Tracking System (ATS) with specialized knowledge in cloud engineering. Your primary task is to meticulously evaluate resumes based on the provided job description for cloud engineering roles. Considering the highly competitive job market, your goal is to offer the best possible guidance for enhancing resumes.
+
+        Resume file: ${resumeFile.name}
+        Description: ${jobDesc}
+
+        strictly and only JSON with fields:
+        • ATS_score: \n\n
+        • Missing Keywords: \n\n
+        • Resume Summary of Resume file: \n\n
+        • Suggestion_for_profile_summary of Resume file in relevance to Description: \n\n
+        • Personalized suggestions for each field of Resume file in relevance to Description: \n\n
+        • Application Success rates : \n\n`
 
     const result = await chatSession.sendMessage(InputPrompt);
 
@@ -78,45 +139,60 @@ export default function ResumeAnalyzerPage() {
 
       {analysisResult && (
         <Card>
-          <CardContent className="p-4">
-            <h3 className="text-lg font-semibold mb-4">Analysis Result</h3>
+      <CardContent className="p-4 space-y-4">
+        <h3 className="text-xl font-bold mb-2">Analysis Result</h3>
 
-            {analysisResult.error ? (
-              <p className="text-red-500">{analysisResult.error}</p>
-            ) : (
-              <div className='flex-col justify-center items-center space-y-4'>
-                {/* ATS Score */}
-                <div className="bg-green-100 p-4 shadow">
-                  <h4 className="text-md font-bold text-green-700">ATS Score</h4>
-                  <p className="text-2xl font-extrabold text-green-900">{analysisResult['ATS_score']}%</p>
-                </div>
+        {analysisResult.error ? (
+          <p className="text-red-500">{analysisResult.error}</p>
+        ) : (
+          <div className="flex flex-col space-y-4">
+            <ToggleSection title="ATS Score" bgColor="bg-green-100">
+              <p className="text-2xl font-extrabold text-green-900">{analysisResult['ATS_score']}%</p>
+            </ToggleSection>
 
-                {/* Resume Summary */}
-                <div className="bg-blue-100 p-4 shadow">
-                  <h4 className="text-md font-bold text-blue-700">Summarised Resume</h4>
-                  <p className="text-gray-700">{analysisResult['Summarised_resume']}</p>
-                </div>
+            <ToggleSection title="Application Success Rate" bgColor="bg-purple-100">
+              <p className="text-2xl font-extrabold text-purple-900">{analysisResult['Application Success rates']}%</p>
+            </ToggleSection>
 
-                {/* Improvement Focus */}
-                <div className="bg-yellow-100 p-4 shadow">
-                  <h4 className="text-md font-bold text-yellow-700 mb-2">Focus of Improvement</h4>
+            <ToggleSection title="Missing Keywords" bgColor="bg-red-100">
+              {analysisResult['Missing Keywords']?.length > 0 ? (
+                <ul className="list-disc list-inside text-gray-700 space-y-1">
+                  {analysisResult['Missing Keywords'].map((keyword, idx) => (
+                    <li key={idx}>{keyword}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-700">No missing keywords!</p>
+              )}
+            </ToggleSection>
 
-        {/* Now loop through improvements */}
-        {analysisResult['focus_of_improvement'] && (
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
-            {Object.entries(analysisResult['focus_of_improvement']).map(([key, value]) => (
-              <li key={key}>
-                <span className="font-semibold">{key}:</span> {value}
-              </li>
-            ))}
-          </ul>
+            <ToggleSection title="Resume Summary" bgColor="bg-blue-100">
+              <p className="text-gray-700">{analysisResult['Resume Summary of Resume file']}</p>
+            </ToggleSection>
+
+            <ToggleSection title="Suggested Profile Summary" bgColor="bg-indigo-100">
+              <p className="text-gray-700">
+                {analysisResult['Suggestion_for_profile_summary of Resume file in relevance to Description']}
+              </p>
+            </ToggleSection>
+
+            <ToggleSection title="Personalized Suggestions" bgColor="bg-yellow-100">
+              <ul className="space-y-2 text-gray-700">
+                {Object.entries(
+                  analysisResult['Personalized suggestions for each field of Resume file in relevance to Description']
+                ).map(([section, suggestion]) => (
+                  <li key={section}>
+                    <span className="font-semibold">{section}:</span> {suggestion}
+                  </li>
+                ))}
+              </ul>
+            </ToggleSection>
+
+            
+          </div>
         )}
-
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+      </CardContent>
+    </Card>
       )}
     </div>
   );

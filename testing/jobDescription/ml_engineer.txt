@@ -1,0 +1,18 @@
+About the job
+What You Will Do
+
+Contribute to the PyTorch upstream community
+Contribute to the integration of PyTorch into the RHEL AI and OpenShift AI products
+Work closely with teams within AI Engineering, where collaboration opportunities present themselves
+Adhere to architectural and design principles that help improve overall development within the group
+Learn the architectural concepts that are key to the development of our product set
+
+What You Will Bring
+
+Experience contributing to Open Source projects
+Experience using and contributing to AI related projects
+Existing PyTorch contributions a strong plus 
+
+Will Be Considered a Plus
+
+Experience with test-base development and agile/scrum methodologies

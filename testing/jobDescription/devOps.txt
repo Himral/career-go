@@ -1,0 +1,34 @@
+What You’ll Do
+
+ Design, build and maintain next gen Egnyte infra with considerations for performance, scalability, reliability and observability. 
+ End to end ownership and implementation of tools, technologies, processes and frameworks. 
+ Quickly work and deliver Proof of Concepts(POCs). 
+ Collaborate with cross functional teams to drive and implement DevOps principles and methodology. 
+ Encourage and automate processes wherever applicable. 
+ Ensure compliance with release management and software configuration policies. 
+ Drive to grow as a DevOps Engineer (we value open-mindedness and a can-do attitude). 
+
+Your Qualifications
+
+ Sound understanding of DevOps tools and practices. 
+ Learn and adapt to new skills. 
+ Strong Linux skills. 
+ Scripting experience, Programming would be an added advantage. 
+ Good exposure to containers and Kubernetes, certification would be a plus. 
+ Experience with any one configuration management tool like Ansible, Chef or Puppet. 
+ Good understanding of Infrastructure as a code paradigm. 
+ Experience with Hashicorp tools like Packer, Terraform & Consul would be good to have skills. 
+ At Least one cloud experience, preferably GCP/Azure. Cost analysis and reduction experience would be a plus. 
+ Experience with any middleware tools like Load balancers, proxies, web servers, search engines, caches, queues would be good to have skills. 
+ Prior experience with monitoring solutions like Prometheus, Grafana, Icinga, Nagios would be an added advantage. 
+
+Benefits
+
+ Competitive salaries 
+ Medical insurance and healthcare benefits for you and your family 
+ Fully paid premiums for life insurance 
+ Flexible hours and PTO 
+ Mental wellness platform subscription 
+ Gym reimbursement 
+ Childcare reimbursement 
+ Group term life insurance 

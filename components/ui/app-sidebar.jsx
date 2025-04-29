@@ -38,6 +38,11 @@ const items = [
     url: "/dashboard",
     icon: Info,
   },
+  {
+    title: "Hackathon Board",
+    url: "/dashboard/hackathon-finder",
+    icon: Info,
+  },
 ]
 
 export function AppSidebar() {

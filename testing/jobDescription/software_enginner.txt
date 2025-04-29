@@ -1,0 +1,16 @@
+Responsibilities
+
+Developing the firm’s Post Trade Platform tools - including reference data management, trade capture, reconciliation, P&L, trade cost management, surveillance, compliance and regulatory functions.
+Works with appropriate stakeholders to determine user requirements for a set of features.
+Works in collaboration with teams across the organization to develop reliable, scalable, and high-performance, software designs.
+Responsible for technological innovation in build-out of the new generation of middle office and back-office applications and processes.
+
+Qualifications
+
+A bachelor’s degree or equivalent in computer science from a top college or university
+0-3 years of relevant experience
+Good problem solving skills.
+Knowledge of Python and Java, shell scripts and linux system
+Knowledge of SQL (i.e. MySQL, PostGres) and NoSQL (i.e. MongoDB, ElasticSearch) databases are highly desirable.
+Past role(s) within electronic trading and a thorough understanding of financial instruments including equities, commodities, credit, interest rates, foreign exchange, cryptocurrencies, futures, forwards, and options will be a plus
+Strong communication skills and fluent in English
