@@ -1,7 +1,0 @@
-Job Description
-Project Role : Software Development Engineer
-Project Role Description : Analyze, design, code and test multiple components of application code across one or more clients. Perform maintenance, enhancements and/or development work.
-Must have skills : Advanced Embedded System Engineering
-Good to have skills : C++ Programming Language, Linux
-Minimum 0-2 year(s) of experience is required
-Educational Qualification : Any Engineering degree
