@@ -12,6 +12,9 @@ const nextConfig = {
     }
     return config;
   },
+  images: {
+    domains: ['d112y698adiu2z.cloudfront.net'],
+  },
   
 };
 

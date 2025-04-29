@@ -16,15 +16,24 @@ export function HackathonCard({ hackathon }) {
       <Card className="hover:shadow-lg transition-shadow duration-300">
         <CardHeader>
           <div className="relative w-full h-48 mb-4">
-            <img
+            <img 
+            src = {hackathon.imageUrl}
+            alt={hackathon.title}
+            layout="responsive"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain rounded-t-lg w-full h-full"
+            />
+            {/* <Image
               src={hackathon.imageUrl}
               alt={hackathon.title}
-              
+              width={300}
+              height={300}
+              layout="responsive"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-contain rounded-t-lg w-full h-full"
               placeholder="blur"
               blurDataURL={hackathon.imageUrl}
-            />
+            /> */}
             <div className="absolute top-0 right-0">
               <Badge variant="secondary">{hackathon.source}</Badge>
             </div>
