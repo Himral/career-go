@@ -34,15 +34,16 @@ const items = [
     icon: Search,
   },
   {
+    title: "Hackathon Board",
+    url: "/dashboard/hackathon-finder",
+    icon: Calendar,
+  },
+  {
     title: "About",
     url: "/dashboard",
     icon: Info,
   },
-  {
-    title: "Hackathon Board",
-    url: "/dashboard/hackathon-finder",
-    icon: Info,
-  },
+  
 ]
 
 export function AppSidebar() {

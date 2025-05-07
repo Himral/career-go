@@ -180,7 +180,7 @@ export default function ResumeAnalyzerPage() {
               <ul className="space-y-2 text-gray-700">
                 {Object.entries(
                   analysisResult['Personalized suggestions for each field of Resume file in relevance to Description']
-                ).map(([key, value]) => (
+                ).map(([section, suggestion]) => (
                   <li key={section}>
                     <span className="font-semibold">{section}:</span> {suggestion}
                   </li>
